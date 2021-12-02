@@ -1,0 +1,29 @@
+extends: eslint-config-dmitmel/presets/node
+env:
+  browser: true
+
+settings:
+  node:
+    tryExtensions: ['.ts', '.js', '.json', '.node']
+
+rules:
+  node/no-unpublished-import: off
+  node/no-unsupported-features/es-syntax:
+    - error
+    - ignores:
+        - modules
+
+overrides:
+  - files: '**/*.ts'
+    extends:
+      - eslint-config-dmitmel/presets/typescript-addon
+    # parserOptions:
+    #   project: 'tsconfig.json'
+    rules:
+      eqeqeq: off
+      no-var: off
+      '@typescript-eslint/naming-convention': off
+      '@typescript-eslint/ban-types': off
+      require-await: off
+      '@typescript-eslint/no-dynamic-delete': off
+      no-undefined: off
