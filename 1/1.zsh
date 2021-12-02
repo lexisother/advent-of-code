@@ -1,6 +1,6 @@
 #!/usr/bin/zsh
 
-args=("${(@f)$(cat "input.txt")}")
+args=("${(@f)$(cat "input1.txt")}")
 print $args
 increase=0
 

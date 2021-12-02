@@ -6,7 +6,7 @@ function tripleSum {
     print $(( ${@[$(( i - 1  ))]} + ${@[$(( i  ))]} + ${@[$(( i + 1  ))]}  ))
 }
 
-args=("${(@f)$(cat "input.txt")}")
+args=("${(@f)$(cat "input2.txt")}")
 print "Input: $args"
 
 triples=()
