@@ -25,8 +25,24 @@ const part1 = (rawInput: string): number => {
   return counts[0];
 };
 
-const part2 = (rawInput: string): void => {
+const part2 = (rawInput: string): number => {
   const input = parseInput(rawInput);
+
+  let counts = [];
+  let counter = 0;
+  for (var i = 0; i < input.length; i++) {
+    let line = input[i];
+    if (line == '') {
+      counts.push(counter);
+      counter = 0;
+    } else {
+      counter += parseInt(line);
+    }
+  }
+
+  counts = counts.sort((a, b) => b - a);
+
+  return counts[0] + counts[1] + counts[2];
 };
 
 run({
