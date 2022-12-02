@@ -10,14 +10,23 @@ const part1 = (rawInput: string): number => {
   for (let line of input) {
     let game = line.split(' ');
     let outcome = parse(game[0], game[1]);
-    total += outcome.score;
+    total += outcome;
   }
 
   return total;
 };
 
-const part2 = (rawInput: string): void => {
+const part2 = (rawInput: string): number => {
   const input = parseInput(rawInput);
+
+  let total = 0;
+  for (let line of input) {
+    let game = line.split(' ');
+    let outcome = parse(game[0], game[1], true);
+    total += outcome;
+  }
+
+  return total;
 };
 
 run({
@@ -36,13 +45,17 @@ run({
   },
   part2: {
     tests: [
-      // {
-      //   input: ``,
-      //   expected: "",
-      // },
+      {
+        input: `
+          A Y
+          B X
+          C Z
+        `,
+        expected: 12,
+      },
     ],
     solution: part2,
   },
   trimTestInputs: true,
-  onlyTests: false,
+  onlyTests: true,
 });

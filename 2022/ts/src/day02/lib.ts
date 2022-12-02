@@ -11,96 +11,48 @@ export const points = {
   },
 };
 
-export function parse(
-  other: string,
-  you: string,
-  p2: boolean = false,
-): { win: boolean; loss: boolean; draw: boolean; score: number } {
-  console.log(other, you);
+export function parse(other: string, you: string, p2: boolean = false): number {
   let score = 0;
-  let win = false;
-  let draw = false;
-  let loss = false;
 
   if (!p2) {
     // Rock vs paper
-    if (other == 'A' && you == 'Y') {
-      console.log(`game score: ${points.chosen.paper + points.finish.win}`);
-      score = points.chosen.paper + points.finish.win;
-      win = true;
-    }
+    if (other == 'A' && you == 'Y') score = points.chosen.paper + points.finish.win;
 
     // Rock vs scissors
-    if (other == 'A' && you == 'Z') {
-      score = points.chosen.scissors + points.finish.loss;
-      console.log(`game score: ${points.chosen.scissors + points.finish.loss}`);
-      loss = true;
-    }
+    if (other == 'A' && you == 'Z') score = points.chosen.scissors + points.finish.loss;
 
     // Paper vs rock
-    if (other == 'B' && you == 'X') {
-      score = points.chosen.rock + points.finish.loss;
-      console.log(`game score: ${points.chosen.rock + points.finish.loss}`);
-      loss = true;
-    }
+    if (other == 'B' && you == 'X') score = points.chosen.rock + points.finish.loss;
 
     // Paper vs scissors
-    if (other == 'B' && you == 'Z') {
-      score = points.chosen.scissors + points.finish.win;
-      console.log(`game score: ${points.chosen.scissors + points.finish.win}`);
-      win = true;
-    }
+    if (other == 'B' && you == 'Z') score = points.chosen.scissors + points.finish.win;
 
     // Scissors vs rock
-    if (other == 'C' && you == 'X') {
-      score = points.chosen.rock + points.finish.win;
-      console.log(`game score: ${points.chosen.rock + points.finish.win}`);
-      win = true;
-    }
+    if (other == 'C' && you == 'X') score = points.chosen.rock + points.finish.win;
 
     // Scissors vs paper
-    if (other == 'C' && you == 'Y') {
-      score = points.chosen.paper + points.finish.loss;
-      console.log(`game score: ${points.chosen.paper + points.finish.loss}`);
-      loss = true;
-    }
+    if (other == 'C' && you == 'Y') score = points.chosen.paper + points.finish.loss;
 
     // Draws
-    if (other == 'A' && you == 'X') {
-      score = points.chosen.rock + points.finish.draw;
-      console.log(`game score: ${points.chosen.rock + points.finish.draw}`);
-      draw = true;
-    }
-    if (other == 'B' && you == 'Y') {
-      score = points.chosen.paper + points.finish.draw;
-      console.log(`game score: ${points.chosen.paper + points.finish.draw}`);
-      draw = true;
-    }
-    if (other == 'C' && you == 'Z') {
-      score = points.chosen.scissors + points.finish.draw;
-      console.log(`game score: ${points.chosen.scissors + points.finish.draw}`);
-      draw = true;
-    }
+    if (other == 'A' && you == 'X') score = points.chosen.rock + points.finish.draw;
+    if (other == 'B' && you == 'Y') score = points.chosen.paper + points.finish.draw;
+    if (other == 'C' && you == 'Z') score = points.chosen.scissors + points.finish.draw;
+  } else {
+    // X == lose
+    // Y == draw
+    // Z == win
+    if (other == 'A' && you == 'X') score = points.chosen.scissors + points.finish.loss;
+    if (other == 'A' && you == 'Y') score = points.chosen.rock + points.finish.draw;
+    if (other == 'A' && you == 'Z') score = points.chosen.paper + points.finish.win;
 
-    // HAHAHA, BIG MISTAKE
-    // if (other == you) {
-    //   switch (you) {
-    //     case 'X':
-    //       score = points.chosen.rock + points.finish.draw;
-    //       console.log(`game score: ${points.chosen.rock + points.finish.draw}`);
-    //       break;
-    //     case 'Y':
-    //       score = points.chosen.paper + points.finish.draw;
-    //       console.log(`game score: ${points.chosen.paper + points.finish.draw}`);
-    //       break;
-    //     case 'Z':
-    //       score = points.chosen.scissors + points.finish.draw;
-    //       console.log(`game score: ${points.chosen.scissors + points.finish.draw}`);
-    //       break;
-    //   }
-    //   draw = true;
-    // }
+    if (other == 'B' && you == 'X') score = points.chosen.rock + points.finish.loss;
+    if (other == 'B' && you == 'Y') score = points.chosen.paper + points.finish.draw;
+    if (other == 'B' && you == 'Z') score = points.chosen.scissors + points.finish.win;
+
+    if (other == 'C' && you == 'X') score = points.chosen.paper + points.finish.loss;
+    if (other == 'C' && you == 'Y') score = points.chosen.scissors + points.finish.draw;
+    if (other == 'C' && you == 'Z') score = points.chosen.rock + points.finish.win;
   }
 
-  return { win, loss, draw, score };
+  return score;
 }
