@@ -1,5 +1,4 @@
 import run from 'aocrunner';
-import { getPriorities } from './lib.js';
 
 const testInput = `
   vJrwpWtwJgWrhcsFMMfFFhFp
@@ -10,11 +9,12 @@ const testInput = `
   CrZsJsPPZsGzwwsLwLmpwMDw
 `;
 const parseInput = (rawInput: string): string => rawInput;
+const charToPriority = (item: string): number =>
+  item.charCodeAt(0) - (item.charCodeAt(0) > 96 ? 96 : 64 - 26);
 
 const part1 = (rawInput: string): number => {
   const input = parseInput(rawInput).split('\n');
   let total = 0;
-  const { lowp, highp } = getPriorities();
 
   for (let sack of input) {
     let comp1 = sack.slice(0, sack.length / 2);
@@ -23,13 +23,11 @@ const part1 = (rawInput: string): number => {
     let split1 = comp1.split('');
     let found = false;
     for (let item of comp2) {
-      if (found) {
-        continue;
-      }
+      if (found) continue;
+
       if (split1.includes(item)) {
         found = true;
-        if (item == item.toLowerCase()) total += lowp[item];
-        if (item == item.toUpperCase()) total += highp[item];
+        total += charToPriority(item);
       }
     }
   }
@@ -41,7 +39,6 @@ const part2 = (rawInput: string): number => {
   const input = parseInput(rawInput);
   let groups = input.match(/(?=[\s\S])(?:.*\n?){1,3}/g)!;
   let total = 0;
-  const { lowp, highp } = getPriorities();
 
   for (let group of groups) {
     let sacks = group.split('\n').filter((n) => n);
@@ -53,8 +50,7 @@ const part2 = (rawInput: string): number => {
       if (s1.includes(item) && s2.includes(item)) commonLetter = item;
     }
 
-    if (commonLetter == commonLetter.toLowerCase()) total += lowp[commonLetter];
-    if (commonLetter == commonLetter.toUpperCase()) total += highp[commonLetter];
+    total += charToPriority(commonLetter);
   }
 
   return total;
