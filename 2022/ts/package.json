@@ -17,7 +17,7 @@
     "@types/node": "^16.18.3",
     "@typescript-eslint/eslint-plugin": "^5.45.0",
     "@typescript-eslint/parser": "^5.45.0",
-    "aocrunner": "^1.6.1",
+    "aocrunner": "^1.8.1",
     "eslint": "^8.28.0",
     "eslint-config-dmitmel": "github:dmitmel/eslint-config-dmitmel",
     "eslint-plugin-node": "^11.1.0",
