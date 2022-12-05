@@ -4,7 +4,7 @@ specifiers:
   '@types/node': ^16.18.3
   '@typescript-eslint/eslint-plugin': ^5.45.0
   '@typescript-eslint/parser': ^5.45.0
-  aocrunner: ^1.8.1
+  aocrunner: ^1.9.5
   eslint: ^8.28.0
   eslint-config-dmitmel: github:dmitmel/eslint-config-dmitmel
   eslint-plugin-node: ^11.1.0
@@ -18,7 +18,7 @@ devDependencies:
   '@types/node': 16.18.3
   '@typescript-eslint/eslint-plugin': 5.45.0_czs5uoqkd3podpy6vgtsxfc7au
   '@typescript-eslint/parser': 5.45.0_hsf322ms6xhhd4b5ne6lb74y4a
-  aocrunner: 1.8.1
+  aocrunner: 1.9.5
   eslint: 8.28.0
   eslint-config-dmitmel: github.com/dmitmel/eslint-config-dmitmel/690f1b1121d342fcc8ee511ca9f2af7502f53db6_eslint@8.28.0
   eslint-plugin-node: 11.1.0_eslint@8.28.0
@@ -316,8 +316,8 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /aocrunner/1.8.1:
-    resolution: {integrity: sha512-GzBcAmhgbkkMaY6t2KmE69fNjgQeMYq8UvpQWXR1qFNLfEYcDyQpW6S4F3j2JcnHPR6dVIeb1rfQ936Q8cwAbw==}
+  /aocrunner/1.9.5:
+    resolution: {integrity: sha512-iRl8taTr5ZswFkkm2595T0xx9oSrAxM2TPj4J/YoRktfqP8bZh9Tsa9siuhhCigLXkgggM3rk4SGrC5iSxaAdA==}
     engines: {node: '>=16.13.0'}
     hasBin: true
     dependencies:
@@ -325,7 +325,6 @@ packages:
       common-tags: 1.8.2
       dotenv: 16.0.3
       esbuild: 0.15.16
-      get-caller-file: 2.0.5
       jsdom: 20.0.3
       kleur: 4.1.5
       node-fetch: 3.3.0
@@ -1019,11 +1018,6 @@ packages:
 
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
-    dev: true
-
-  /get-caller-file/2.0.5:
-    resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
-    engines: {node: 6.* || 8.* || >= 10.*}
     dev: true
 
   /glob-parent/5.1.2:
