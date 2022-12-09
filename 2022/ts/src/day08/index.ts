@@ -16,6 +16,7 @@ const parseInput = (rawInput: string): number[][] => {
 const part1 = (rawInput: string): number => {
   const input = parseInput(rawInput);
 
+  // Welcome to another episode of thinking functionally.
   return input.flat().filter((height, position) => {
     const x = Math.floor(position % input[0].length);
     const y = Math.floor(position / input[0].length);
