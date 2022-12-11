@@ -25,4 +25,5 @@ overrides:
       '@typescript-eslint/ban-types': off
       require-await: off
       '@typescript-eslint/no-dynamic-delete': off
+      '@typescript-eslint/no-non-null-asserted-optional-chain': off
       no-undefined: off
