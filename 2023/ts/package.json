@@ -15,12 +15,16 @@
   "author": "Alyxia Sother",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^16.11.6",
+    "@types/node": "^20.10.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
     "aocrunner": "^1.9.6",
-    "prettier": "^2.8.0"
+    "eslint": "^8.54.0",
+    "eslint-config-dmitmel": "github:dmitmel/eslint-config-dmitmel",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.8.8"
   },
-  "dependencies": {},
   "engines": {
-    "node": ">=16.13.0"
+    "node": ">=20.5.1"
   }
 }
