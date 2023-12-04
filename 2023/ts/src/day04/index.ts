@@ -1,41 +1,45 @@
-import run from 'aocrunner';
+import run from "aocrunner";
 
-const parseInput = (rawInput: string): string[] => rawInput.split('\n');
+const parseInput = (rawInput: string): string[] => rawInput.split("\n");
 
 const part1 = (rawInput: string): number => {
   const input = parseInput(rawInput);
-  let res = 0;
 
-  for (let card of input) {
-    card = card.replace(/Card\s+\d+:/g, '');
-    let total = 0;
-    let first = true;
-    let [winning, ours] = card.split('|').map((v) =>
-      v
-        .trim()
-        .split(' ')
-        .filter((e) => e),
-    );
-
-    for (let number of ours) {
-      if (winning.includes(number)) {
-        if (first) {
-          total = 1;
-          first = false;
-        } else total *= 2;
-      }
-    }
-    res += total;
-  }
-
-  return res;
+  return input
+    .slice(0, -1)
+    .map((x) =>
+      x
+        .substring(x.indexOf(":") + 2)
+        .split(" | ")
+        .map((y) => y.match(/\d+/g)!.map((z) => Number(z)))
+    )
+    .map((x) => x[0].filter((y) => x[1].includes(y)).length)
+    .reduce((a, b) => a + Math.floor(Math.pow(2, b - 1)), 0);
 };
 
-const part2 = (rawInput: string): void => {
+const part2 = (rawInput: string): number => {
   const input = parseInput(rawInput);
+
+  return input
+    .slice(0, -1)
+    .map((x) =>
+      x
+        .substring(x.indexOf(":") + 2)
+        .split(" | ")
+        .map((y) => y.match(/\d+/g)!.map((z) => Number(z)))
+    )
+    .map((x) => x[0].filter((y) => x[1].includes(y)).length)
+    .reduce(
+      (a: number[], b, idx, _) =>
+        [...a, ...Array(Math.max(0, idx + b + 1 - a.length)).fill(1)].map(
+          (x, xidx) => x + (idx < xidx && xidx <= idx + b ? a[idx] ?? 1 : 0)
+        ),
+      []
+    )
+    .reduce((a, b) => a + b);
 };
 
-let example1 = `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
+let example = `Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53
 Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19
 Card 3:  1 21 53 59 44 | 69 82 63 72 16 21 14  1
 Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
@@ -45,7 +49,7 @@ run({
   part1: {
     tests: [
       {
-        input: example1,
+        input: example,
         expected: 13,
       },
     ],
@@ -53,10 +57,10 @@ run({
   },
   part2: {
     tests: [
-      // {
-      //   input: ``,
-      //   expected: "",
-      // },
+      {
+        input: example,
+        expected: 30, // somehow this fails the test???
+      },
     ],
     solution: part2,
   },
