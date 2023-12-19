@@ -1,92 +1,94 @@
-import kotlin.math.max
-import kotlin.math.min
+val input = System.`in`.bufferedReader()
 
-val input = System.`in`.bufferedReader().readLines()
+// Utils
+sealed interface Comparison {
+    val key: Char
+    val value: Int
+    val range: IntRange
+    val antirange: IntRange
 
-data class Workflow(val rules: List<List<String>>, val result: String)
+    data class LessThan(override val key: Char, override val value: Int) : Comparison {
+        override val range: IntRange
+            @OptIn(kotlin.ExperimentalStdlibApi::class)
+            get() = Int.MIN_VALUE..<value
+        override val antirange: IntRange
+            get() = value..Int.MAX_VALUE
+    }
 
-val workflows = HashMap<String, Workflow>()
-val parts = ArrayList<Map<String, Int>>()
+    data class GreaterThan(override val key: Char, override val value: Int) : Comparison {
+        override val range: IntRange
+            get() = value + 1..Int.MAX_VALUE
+        override val antirange: IntRange
+            get() = Int.MIN_VALUE..value
+    }
+}
 
-input.forEach { l ->
-    if (l.startsWith('{')) {
-        val part = HashMap<String, Int>()
-        l.substring(1, l.length - 1).split(',').forEach {
-            part[it.split('=')[0]] = it.split('=')[1].toInt()
+val IntRange.size: Int
+    get() = if (isEmpty()) 0 else last - first + 1
+
+operator fun Map<Char, IntRange>.times(comparison: Comparison?): Map<Char, IntRange> {
+    val key = comparison?.key ?: return this
+    val a = this.getOrElse(key) { Int.MIN_VALUE..Int.MAX_VALUE }
+    val b = comparison.range
+    return this + (key to maxOf(a.first, b.first)..minOf(a.last, b.last))
+}
+
+operator fun MutableMap<Char, IntRange>.minusAssign(comparison: Comparison?) {
+    val key = comparison?.key ?: return
+    val a = this.getOrElse(key) { Int.MIN_VALUE..Int.MAX_VALUE }
+    val b = comparison.antirange
+    this[key] = maxOf(a.first, b.first)..minOf(a.last, b.last)
+}
+
+// Initialize
+val iterator = input.lineSequence().iterator()
+val rules: Map<String, List<Pair<String, Comparison?>>> = buildMap {
+    @Suppress("LoopWithTooManyJumpStatements")
+    for (line in iterator) {
+        if (line.isEmpty() && this.isNotEmpty()) break
+        if ('{' !in line || !line.endsWith('}')) continue
+        val name = line.substringBefore('{')
+        this[name] = line.substring(name.length + 1, line.lastIndex).split(',').map {
+            it.substringAfter(':') to when (it.getOrNull(1)) {
+                '<' -> Comparison.LessThan(it[0], it.substringBefore(':').drop(2).toInt())
+                '>' -> Comparison.GreaterThan(it[0], it.substringBefore(':').drop(2).toInt())
+                else -> null
+            }
         }
-        parts.add(part)
-    } else if (!l.isBlank()) {
-        val items = l.substring(l.indexOf('{') + 1, l.length - 1).split(',')
-        workflows[l.substring(0, l.indexOf('{'))] = Workflow(
-            items.dropLast(1).map {
-                listOf(it[0].toString(), it[1].toString(), it.substring(2, it.indexOf(':')), it.substring(it.indexOf(':') + 1))
-            }.toList(),
-            items.last()
+    }
+}
+val points: List<Map<Char, Int>> = buildList {
+    for (line in iterator) {
+        if (!line.startsWith('{') || !line.endsWith('}')) continue
+        this += line.substring(1, line.lastIndex).split(',').filter { it[1] == '=' }.associateBy(
+            keySelector = { it[0] },
+            valueTransform = { it.drop(2).toInt() },
         )
     }
 }
 
-var res1 = 0
-var res2: Long = 0
-
-for (part in parts) {
-    var wf = "in"
-    // this makes me feel like i'm back in 2015 javascript
-    do {
-        var matched = false
-        for (rule in workflows[wf]!!.rules) {
-            when (rule[1]) {
-                "<" -> matched = part[rule[0]]!! < rule[2].toInt()
-                ">" -> matched = part[rule[0]]!! > rule[2].toInt()
-            }
-            if (matched) { wf = rule[3]; break }
+// Solutions
+var p1: Int = points.sumOf { point ->
+    if ("A" in generateSequence("in") { name ->
+            rules[name]?.firstOrNull { (_, it) -> it == null || point[it.key] in it.range }?.first
         }
-        if (!matched) wf = workflows[wf]!!.result
-    } while (wf != "A" && wf != "R")
-    if (wf == "A") res1 += part["x"]!! + part["m"]!! + part["a"]!! + part["s"]!!
-}
-
-val queue = ArrayDeque<Pair<String, Map<String, IntRange>>>()
-queue.add(Pair("in", hashMapOf("x" to 1..4000, "m" to 1..4000, "a" to 1..4000, "s" to 1..4000)))
-while (!queue.isEmpty()) {
-    val r = queue.removeFirst()
-    if (r.first == "A") {
-        res2 += (r.second["x"]!!.last - r.second["x"]!!.first + 1).toLong() *
-                (r.second["m"]!!.last - r.second["m"]!!.first + 1).toLong() *
-                (r.second["a"]!!.last - r.second["a"]!!.first + 1).toLong() *
-                (r.second["s"]!!.last - r.second["s"]!!.first + 1).toLong()
-        continue
-    } else if (r.first == "R") continue
-    var matched = false
-    for (rule in workflows[r.first]!!.rules) {
-        when (rule[1]) {
-            "<" -> {
-                if (r.second[rule[0]]!!.contains(rule[2].toInt())) {
-                    val ranges = HashMap(r.second)
-                    @OptIn(kotlin.ExperimentalStdlibApi::class)
-                    ranges[rule[0]] = ranges[rule[0]]!!.first..<min(ranges[rule[0]]!!.last, rule[2].toInt())
-                    queue.add(Pair(rule[3], ranges))
-                    val ranges2 = HashMap(r.second)
-                    ranges2[rule[0]] = min(ranges[rule[0]]!!.last, rule[2].toInt())..(ranges[rule[0]]!!.last)
-                    queue.add(Pair(r.first, ranges2))
-                    matched = true
-                }
-            }
-            ">" -> {
-                if (r.second[rule[0]]!!.contains(rule[2].toInt())) {
-                    val ranges = HashMap(r.second)
-                    @OptIn(kotlin.ExperimentalStdlibApi::class)
-                    ranges[rule[0]] = max(ranges[rule[0]]!!.first, rule[2].toInt()) ..<(ranges[rule[0]]!!.last)
-                    queue.add(Pair(rule[3], ranges))
-                    val ranges2 = HashMap(r.second)
-                    ranges2[rule[0]] = (ranges[rule[0]]!!.last)..(max(ranges[rule[0]]!!.first, rule[2].toInt()))
-                    queue.add(Pair(r.first, ranges2))
-                    matched = true
-                }
-            }
-        }
-        if (matched) break
+    ) {
+        point.values.sum()
+    } else {
+        0
     }
-    if (!matched) queue.add(Pair(workflows[r.first]!!.result, r.second))
 }
-println(listOf(res1, res2))
+
+var p2: Long = DeepRecursiveFunction<Pair<String, Map<Char, IntRange>>, Long> { (name, bounds) ->
+    if (name == "A") return@DeepRecursiveFunction bounds.values.fold(1L) { acc, range -> acc * range.size }
+    val list = rules[name] ?: return@DeepRecursiveFunction 0
+    val updatedBounds = bounds.toMutableMap()
+    var acc = 0L
+    for ((next, comparison) in list) {
+        acc += callRecursive(next to updatedBounds * comparison)
+        updatedBounds -= comparison
+    }
+    acc
+}("in" to mapOf('x' to 1..4000, 'm' to 1..4000, 'a' to 1..4000, 's' to 1..4000))
+
+println(listOf(p1, p2))
