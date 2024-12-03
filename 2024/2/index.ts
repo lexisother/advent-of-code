@@ -1,20 +1,13 @@
-import run from "aocrunner";
+import { run } from "@aockit/core";
 
-const exampleInput = `7 6 4 2 1
-1 2 7 8 9
-9 7 6 2 1
-1 3 2 4 5
-8 6 4 4 1
-1 3 6 7 9`;
-
-const parseInput = (rawInput: string): number[][] =>
-  rawInput
+const parseInput = (input: string) =>
+  input
     .trim()
     .split("\n")
     .map((l) => l.trim())
-    .map((l) => l.split(" ").map((i) => parseInt(i)));
+    .map((l) => l.split(" ").map((i) => Number(i)));
 
-function isValid(line: number[]) {
+const isValid = (line: number[]): boolean => {
   let valid = true;
   let decreasing = true;
   let increasing = true;
@@ -28,10 +21,9 @@ function isValid(line: number[]) {
   }
 
   return valid && (increasing || decreasing);
-}
+};
 
-const part1 = (rawInput: string): number => {
-  const input = parseInput(rawInput);
+const part1 = (input: number[][]): number => {
   let validReports = 0;
 
   for (const line of input) {
@@ -41,8 +33,7 @@ const part1 = (rawInput: string): number => {
   return validReports;
 };
 
-const part2 = (rawInput: string): number => {
-  const input = parseInput(rawInput);
+const part2 = (input: number[][]): number => {
   let validReports = 0;
 
   for (const line of input) {
@@ -57,25 +48,29 @@ const part2 = (rawInput: string): number => {
   return validReports;
 };
 
+const example = `7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9`;
+
 run({
-  part1: {
-    tests: [
-      {
-        input: exampleInput,
-        expected: 2,
-      },
-    ],
-    solution: part1,
-  },
-  part2: {
-    tests: [
-      {
-        input: exampleInput,
-        expected: 4,
-      },
-    ],
-    solution: part2,
-  },
-  trimTestInputs: true,
-  onlyTests: false,
+  part1: ({ input }) => part1(parseInput(input)),
+  part2: ({ input }) => part2(parseInput(input)),
+
+  tests: [
+    {
+      name: "Part 1",
+      input: example,
+      expected: 2,
+      solution: ({ input }) => part1(parseInput(input)),
+    },
+    {
+      name: "Part 2",
+      input: example,
+      expected: 4,
+      solution: ({ input }) => part2(parseInput(input)),
+    },
+  ],
 });

@@ -1,23 +1,14 @@
-import run from "aocrunner";
-
-const exampleInput = `3   4
-4   3
-2   5
-1   3
-3   9
-3   3`;
+import { run } from "@aockit/core";
 
 const parseInput = (rawInput: string): string[] => rawInput.split("\n");
 
-const part1 = (rawInput: string): number => {
-  const input = parseInput(rawInput);
-
+const part1 = (input: string[]): number => {
   const distances: number[] = [];
   const leftIds: number[] = [];
   const rightIds: number[] = [];
 
   for (const idPair of input) {
-    const [left, right] = idPair.split("   ").map((id) => parseInt(id.trim()));
+    const [left, right] = idPair.split("   ").map((id) => Number(id.trim()));
     leftIds.push(left);
     rightIds.push(right);
   }
@@ -34,9 +25,7 @@ const part1 = (rawInput: string): number => {
   return distances.reduce((acc, a) => acc + a, 0);
 };
 
-const part2 = (rawInput: string): number => {
-  const input = parseInput(rawInput);
-
+const part2 = (input: string[]): number => {
   const leftIds: number[] = [];
   const rightIds: number[] = [];
   const appearances = (arr1: number[], arr2: number[]) =>
@@ -46,7 +35,7 @@ const part2 = (rawInput: string): number => {
     }, []);
 
   for (const idPair of input) {
-    const [left, right] = idPair.split("   ").map((id) => parseInt(id.trim()));
+    const [left, right] = idPair.split("   ").map((id) => Number(id.trim()));
     leftIds.push(left);
     rightIds.push(right);
   }
@@ -55,32 +44,36 @@ const part2 = (rawInput: string): number => {
 
   const occMap = appearances(leftIds, rightIds);
   let res = 0;
-  for (let [num, occs] of Object.entries(occMap)) {
-    res += parseInt(num) * occs;
+  for (const [num, occs] of Object.entries(occMap)) {
+    res += Number(num) * occs;
   }
 
   return res;
 };
 
+const example = `3   4
+4   3
+2   5
+1   3
+3   9
+3   3`.trim();
+
 run({
-  part1: {
-    tests: [
-      {
-        input: exampleInput,
-        expected: 11,
-      },
-    ],
-    solution: part1,
-  },
-  part2: {
-    tests: [
-      {
-        input: exampleInput,
-        expected: 31,
-      },
-    ],
-    solution: part2,
-  },
-  trimTestInputs: true,
-  onlyTests: false,
+  part1: ({ readInput }) => part1(readInput("lines")),
+  part2: ({ readInput }) => part2(readInput("lines")),
+
+  tests: [
+    {
+      name: "Part 1",
+      input: example,
+      expected: 11,
+      solution: ({ input }) => part1(parseInput(input)),
+    },
+    {
+      name: "Part 2",
+      input: example,
+      expected: 31,
+      solution: ({ input }) => part2(parseInput(input)),
+    },
+  ],
 });
