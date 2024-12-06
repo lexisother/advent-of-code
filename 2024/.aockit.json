@@ -1,5 +1,6 @@
 {
   "year": 2024,
+  "builder": "rolldown",
   "days": {
     "1": {
       "runner": null,
