@@ -72,12 +72,12 @@
       "part1": {
         "solved": true,
         "result": 5269,
-        "time": null
+        "time": 16
       },
       "part2": {
         "solved": true,
         "result": 1957,
-        "time": null
+        "time": 2308
       }
     },
     "7": {

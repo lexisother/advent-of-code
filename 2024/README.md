@@ -92,9 +92,9 @@ _Click a badge to go to the specific day._
 
  ```
  Day 06
- Time part 1: -
- Time part 2: -
- Both parts: -
+ Time part 1: 16ms
+ Time part 2: 2308ms
+ Both parts: 2324ms
  ```
     
 
@@ -272,7 +272,7 @@ _Click a badge to go to the specific day._
 
 ```
 Total stars: 12/50
-Total time: 48.065ms
+Total time: 2372.065ms
 ```
 
 
