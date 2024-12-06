@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@aockit/cli':
-        specifier: ^0.0.5
-        version: 0.0.5(esbuild@0.24.0)(rolldown@0.15.0)
+        specifier: ^0.0.6
+        version: 0.0.6(esbuild@0.24.0)(rolldown@0.15.0)
       '@aockit/core':
         specifier: ^0.0.5
         version: 0.0.5
@@ -44,13 +44,13 @@ importers:
 
 packages:
 
-  '@aockit/cli@0.0.5':
-    resolution: {integrity: sha512-BAaUGmxGRv+aw/jqXoR8Ef6heHQps4oUAtz7aZIriZW5VAl3Ld4FiaJBYWqxONHvskM72x1AtWjYDle/Yr/ROQ==}
+  '@aockit/cli@0.0.6':
+    resolution: {integrity: sha512-k3qnPqglnAzsyassJhv4zSdnTl+LWPXGVf+pR5YnAY2t0y++CxSXD02uBcyAFTRPkjJDwydHsyngAKAYwUT53w==}
     hasBin: true
     peerDependencies:
-      esbuild: ^0.24.0
-      jiti: ^2.4.1
-      rolldown: ^0.14.0
+      esbuild: '>=0.24.0'
+      jiti: '>=2.4.1'
+      rolldown: '>=0.14.0'
     peerDependenciesMeta:
       esbuild:
         optional: true
@@ -919,7 +919,7 @@ packages:
 
 snapshots:
 
-  '@aockit/cli@0.0.5(esbuild@0.24.0)(rolldown@0.15.0)':
+  '@aockit/cli@0.0.6(esbuild@0.24.0)(rolldown@0.15.0)':
     dependencies:
       '@aockit/core': 0.0.5
       '@clack/prompts': 0.8.2
