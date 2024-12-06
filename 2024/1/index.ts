@@ -1,4 +1,4 @@
-import { run } from "@aockit/core";
+import run from "@aockit/core";
 
 const parseInput = (rawInput: string): string[] => rawInput.split("\n");
 
@@ -72,7 +72,7 @@ run({
     {
       name: "Part 2",
       input: example,
-      expected: 31,
+      expected: 13,
       solution: ({ input }) => part2(parseInput(input)),
     },
   ],

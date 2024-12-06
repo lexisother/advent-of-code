@@ -13,6 +13,6 @@
     "forceConsistentCasingInFileNames": true,
     "importHelpers": true
   },
-  "include": ["2024"],
+  "include": ["**/*.ts"],
   "exclude": ["node_modules"]
 }
