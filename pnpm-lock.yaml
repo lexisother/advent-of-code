@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      js-md5:
+        specifier: ^0.8.3
+        version: 0.8.3
     devDependencies:
       '@aockit/cli':
         specifier: ^0.0.6
@@ -723,6 +727,9 @@ packages:
 
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
+
+  js-md5@0.8.3:
+    resolution: {integrity: sha512-qR0HB5uP6wCuRMrWPTrkMaev7MJZwJuuw4fnwAzRgP4J4/F8RwtodOKpGp4XpqsLBFzzgqIO42efFAyz2Et6KQ==}
 
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
@@ -1499,6 +1506,8 @@ snapshots:
   is-unicode-supported@2.1.0: {}
 
   isexe@2.0.0: {}
+
+  js-md5@0.8.3: {}
 
   js-yaml@4.1.0:
     dependencies:
