@@ -44,7 +44,7 @@ val (p2ans, p2time) = measureTimedValue {
 }
 
 println("Part 1: $p1ans (${p1time.inWholeMilliseconds}ms)")
-println("Part 1: $p2ans (${p2time.inWholeMilliseconds}ms)")
+println("Part 2: $p2ans (${p2time.inWholeMilliseconds}ms)")
 
 // I'd love to put this all in another file, but that breaks references.
 // Four years and counting, unresolved issue: https://youtrack.jetbrains.com/issue/KTIJ-16352
