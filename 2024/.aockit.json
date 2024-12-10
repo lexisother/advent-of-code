@@ -109,27 +109,27 @@
     "9": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 6415184586041,
+        "time": 11
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 6436819084274,
+        "time": 312
       }
     },
     "10": {
-      "runner": null,
+      "runner": "kotlin day.main.kts",
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 746,
+        "time": 32
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 1541,
+        "time": 3
       }
     },
     "11": {
