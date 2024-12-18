@@ -200,27 +200,27 @@
     "16": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 85396,
+        "time": 456
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 428,
+        "time": 1145
       }
     },
     "17": {
-      "runner": null,
+      "runner": "kotlin day.main.kts",
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": "3,6,3,7,0,7,0,3,0",
+        "time": 0.379
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 136904920099226,
+        "time": 7
       }
     },
     "18": {
