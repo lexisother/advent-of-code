@@ -201,8 +201,8 @@ _Click a badge to go to the specific day._
  ```
  Day 18
  Time part 1: 24ms
- Time part 2: 733ms
- Both parts: 757ms
+ Time part 2: 200ms
+ Both parts: 224ms
  ```
     
 
@@ -272,7 +272,7 @@ _Click a badge to go to the specific day._
 
 ```
 Total stars: 38/50
-Total time: 8013.777ms
+Total time: 7480.777ms
 ```
 
 

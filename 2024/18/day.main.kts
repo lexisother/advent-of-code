@@ -1,80 +1,57 @@
 import java.io.File
-import java.util.LinkedList
-import java.util.Queue
 import kotlin.time.measureTimedValue
 
-val WIDTH = 71
-val HEIGHT = 71
-val BYTES = 1024
+data class Node(val x: Int, val y: Int, val next: Node? = null)
 
-val input = File("input.txt").readLines()
+val size = 70
+val input = File("input.txt").readLines().mapNotNull { line ->
+    val x = line.substringBefore(",").toIntOrNull() ?: return@mapNotNull null
+    val y = line.substringAfter(",").toIntOrNull() ?: return@mapNotNull null
+    x to y
+}.toList()
 
-val grid = Array(HEIGHT) { CharArray(WIDTH) { '.' } }
-for (i in 0 until BYTES) {
-    val (x, y) = input[i].split(",").map(String::toInt)
-    grid[y][x] = '#'
+fun findPath(obstacles: Iterable<IntPair>): Set<IntPair>? {
+    val visited = obstacles.toMutableSet()
+    val queue = ArrayDeque<Node>()
+    queue.add(Node(0, 0))
+
+    while(queue.isNotEmpty()) {
+        val node = queue.removeFirst()
+        val (x, y) = node
+
+        if (x == size && y == size) return generateSequence(node) { it.next }.map { it.x to it.y }.toSet()
+        if (!visited.add(x to y)) continue
+        if (x > 0) queue.addLast(Node(x - 1, y, node))
+        if (y > 0) queue.addLast(Node(x, y - 1, node))
+        if (y < size) queue.addLast(Node(x, y + 1, node))
+        if (x < size) queue.addLast(Node(x + 1, y, node))
+    }
+
+    return null
 }
 
 val (p1ans, p1time) = measureTimedValue {
-    bfs(grid)
+    findPath(input.subList(0, 1024))?.size?.minus(1)
 }
-
 val (p2ans, p2time) = measureTimedValue {
-    var out = ""
-
-    for (i in BYTES until input.size) {
-        val (x, y) = input[i].split(",").map(String::toInt)
-        grid[y][x] = '#'
-
-        if (bfs(grid) == Int.MAX_VALUE) {
-            out = input[i]
-            break
-        }
+    var i = 0
+    while (i < input.size) {
+        val path = findPath(input.subList(0, i + 1)) ?: return@measureTimedValue input[i].let { (x, y) -> "$x,$y" }
+        do i++ while (i < input.size && input[i] !in path)
     }
-
-    out
 }
 
 println("Part 1: $p1ans (${p1time.inWholeMilliseconds}ms)")
 println("Part 2: $p2ans (${p2time.inWholeMilliseconds}ms)")
 
-fun bfs(grid: Array<CharArray>): Int {
-    val start = Pair(0, 0)
-    val end = Pair(WIDTH - 1, HEIGHT - 1)
-
-    val directions = listOf(
-        Pair(0, -1),
-        Pair(1, 0),
-        Pair(0, 1),
-        Pair(-1, 0)
+// I'd love to put this all in another file, but that breaks references.
+// Four years and counting, unresolved issue: https://youtrack.jetbrains.com/issue/KTIJ-16352
+data class IntPair(val first: Int, val second: Int)
+infix fun Int.to(other: Int): IntPair = IntPair(this, other)
+val IntPair.adj: List<IntPair>
+    get() = listOf(
+        first - 1 to second,
+        first to second - 1,
+        first to second + 1,
+        first + 1 to second
     )
-
-    val visited = mutableSetOf<Pair<Int, Int>>()
-    val queue: Queue<Triple<Int, Int, Int>> = LinkedList()
-    queue.add(Triple(start.first, start.second, 0))
-
-    while (queue.isNotEmpty()) {
-        val (x, y, steps) = queue.remove()
-
-        if (x == end.first && y == end.second) {
-            return steps
-        }
-
-        for ((dx, dy) in directions) {
-            val nx = x + dx
-            val ny = y + dy
-
-            if (nx < 0 || ny < 0 || nx >= WIDTH || ny >= HEIGHT) continue
-
-            if (grid[ny][nx] == '#') continue
-
-            val nextPos = Pair(nx, ny)
-            if (nextPos in visited) continue
-
-            visited.add(nextPos)
-            queue.add(Triple(nx, ny, steps + 1))
-        }
-    }
-
-    return Int.MAX_VALUE
-}
