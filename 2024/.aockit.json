@@ -239,14 +239,14 @@
     "19": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 251,
+        "time": 175
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 616957151871345,
+        "time": 135
       }
     },
     "20": {
