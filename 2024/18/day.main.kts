@@ -1,4 +1,6 @@
 import java.io.File
+import java.util.LinkedList
+import java.util.Queue
 import kotlin.time.measureTimedValue
 
 val WIDTH = 71
@@ -48,11 +50,11 @@ fun bfs(grid: Array<CharArray>): Int {
     )
 
     val visited = mutableSetOf<Pair<Int, Int>>()
-    val queue = ArrayDeque<Triple<Int, Int, Int>>()
+    val queue: Queue<Triple<Int, Int, Int>> = LinkedList()
     queue.add(Triple(start.first, start.second, 0))
 
     while (queue.isNotEmpty()) {
-        val (x, y, steps) = queue.removeFirst()
+        val (x, y, steps) = queue.remove()
 
         if (x == end.first && y == end.second) {
             return steps
