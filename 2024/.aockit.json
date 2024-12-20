@@ -250,16 +250,16 @@
       }
     },
     "20": {
-      "runner": null,
+      "runner": "kotlin day.main.kts",
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 1369,
+        "time": 26
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 979012,
+        "time": 100
       }
     },
     "21": {
