@@ -291,14 +291,14 @@
     "23": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 1344,
+        "time": 9
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": "ab,al,cq,cr,da,db,dr,fw,ly,mn,od,py,uh",
+        "time": 2695
       }
     },
     "24": {
