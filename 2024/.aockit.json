@@ -302,16 +302,16 @@
       }
     },
     "24": {
-      "runner": null,
+      "runner": "kotlin p1.main.kts && python main.py",
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 64755511006320,
+        "time": 34
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": "djg,dsd,hjm,mcq,sbg,z12,z19,z37",
+        "time": 22000
       }
     },
     "25": {
