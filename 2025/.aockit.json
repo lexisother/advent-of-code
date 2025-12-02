@@ -17,14 +17,14 @@
     "2": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 29940924880,
+        "time": 374
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 48631958998,
+        "time": 3915
       }
     },
     "3": {
