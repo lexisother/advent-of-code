@@ -43,14 +43,14 @@
     "4": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 1493,
+        "time": 4
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 9194,
+        "time": 26
       }
     },
     "5": {
