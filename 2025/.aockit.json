@@ -82,14 +82,14 @@
     "7": {
       "runner": null,
       "part1": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 1622,
+        "time": 1
       },
       "part2": {
-        "solved": false,
-        "result": null,
-        "time": null
+        "solved": true,
+        "result": 10357305916520,
+        "time": 1
       }
     },
     "8": {
